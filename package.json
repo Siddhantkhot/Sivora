@@ -1,0 +1,32 @@
+{
+  "name": "mern-chat-app",
+  "version": "1.0.0",
+  "description": "Full-stack real-time chat application using MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm run dev",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mern",
+    "chat",
+    "socket.io",
+    "react",
+    "mongodb",
+    "express",
+    "node"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "emoji-picker-react": "^4.12.2",
+    "webrtc-adapter": "^9.0.3"
+  }
+}

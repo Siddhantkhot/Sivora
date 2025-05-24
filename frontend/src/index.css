@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  @apply bg-gray-50;
+}
+
+/* Custom scrollbar */
+@layer components {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+}
+
+/* Gradient Backgrounds */
+@layer components {
+  
+  .bg-gradient-primary {
+    background-image: linear-gradient(to right, #6366F1, #4F46E5);
+  }
+
+  .bg-gradient-secondary {
+    background-image: linear-gradient(to right, #F472B6, #EC4899);
+  }
+
+  .bg-gradient-accent {
+    background-image: linear-gradient(to right, #34D399, #10B981);
+  }
+
+  .bg-gradient-primary-secondary {
+    background-image: linear-gradient(to right, #4F46E5, #EC4899);
+  }
+
+  .bg-gradient-primary-accent {
+    background-image: linear-gradient(to right, #4F46E5, #10B981);
+  }
+
+  .bg-gradient-secondary-accent {
+    background-image: linear-gradient(to right, #EC4899, #10B981);
+  }
+}
+
+@layer components {
+  .bg-gradient-cool {
+    @apply bg-gradient-to-br from-blue-400 to-purple-500;
+  }
+
+  .bg-gradient-warm {
+    @apply bg-gradient-to-br from-yellow-300 to-red-500;
+  }
+
+  .bg-gradient-pastel {
+    @apply bg-gradient-to-br from-pink-200 to-blue-200;
+  }
+
+  .bg-gradient-night {
+    @apply bg-gradient-to-br from-gray-800 to-gray-900;
+  }
+}
+
+@layer components {
+  .bg-gradient-dawn {
+    @apply bg-gradient-to-br from-orange-200 to-pink-200;
+  }
+
+  .bg-gradient-dusk {
+    @apply bg-gradient-to-br from-purple-400 to-blue-500;
+  }
+
+  .bg-gradient-ocean {
+    @apply bg-gradient-to-br from-blue-300 to-teal-400;
+  }
+
+  .bg-gradient-forest {
+    @apply bg-gradient-to-br from-green-300 to-teal-500;
+  }
+
+  .bg-gradient-sunset {
+    @apply bg-gradient-to-br from-orange-400 to-pink-500;
+  }
+
+  .bg-gradient-aurora {
+    @apply bg-gradient-to-br from-green-300 to-purple-400;
+  }
+}
+
+/* Animated Gradients */
+.bg-gradient-animated {
+  background-size: 200% 200%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glass Effect */
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/70 shadow-md;
+  }
+
+  .glass-dark {
+    @apply backdrop-blur-md bg-gray-900/70 shadow-md;
+  }
+}
+
