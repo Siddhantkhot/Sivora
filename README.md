@@ -1,4 +1,4 @@
-# MERN Chat Application
+    # MERN Chat Application
 
 A full-stack real-time chat application built with the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.IO.
 
