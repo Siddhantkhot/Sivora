@@ -18,26 +18,37 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-// Set up Socket.IO with basic configuration
+// Allowed origins - supports both local dev and production
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (Postman, mobile apps, etc.)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+};
+
+// Set up Socket.IO with shared CORS config
 const io = socketIo(server, {
-  cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
-    methods: ['GET', 'POST'],
-    credentials: true
-  }
+  cors: corsOptions
 });
 
-// Log socket server initialization
 console.log('Socket.IO server initialized');
 
-// Middleware - CORS configuration to match Socket.IO
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-}));
+// Middleware - CORS
+app.use(cors(corsOptions));
 
-console.log('Express CORS configured');
+console.log('Express CORS configured for origins:', allowedOrigins);
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
@@ -67,8 +78,7 @@ console.log('Connection string:', process.env.MONGODB_URI ? 'Using env variable'
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mern-chat')
   .then(() => {
     console.log('Connected to MongoDB successfully');
-    
-    // Start server
+
     const PORT = process.env.PORT || 5000;
     server.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
@@ -78,7 +88,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mern-chat
     console.error('MongoDB connection error details:', err);
     console.error('Error name:', err.name);
     console.error('Error message:', err.message);
-    
+
     // Fallback to local MongoDB if Atlas fails
     if (process.env.MONGODB_URI && process.env.MONGODB_URI.includes('mongodb+srv')) {
       console.log('Attempting to connect to local MongoDB as fallback...');
